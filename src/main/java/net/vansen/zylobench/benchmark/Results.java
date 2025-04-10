@@ -23,6 +23,7 @@ public class Results {
      * @param accuracy the accuracy
      */
     public static void print(@NotNull Result result, @NotNull TimeUnit timeUnit, long maxTime, int accuracy) {
+        double total = BasicUtils.convert(result.total(), timeUnit);
         double min = BasicUtils.convert(result.min(), timeUnit);
         double avg = BasicUtils.convert(result.avg(), timeUnit);
         double max = BasicUtils.convert(result.max(), timeUnit);
@@ -37,6 +38,7 @@ public class Results {
         ZyloBench.logger.info(String.format("  \u001B[34mP75: %10." + accuracy + "f %s %-40s\u001B[0m", p75, timeUnit.toString().toLowerCase(), BasicUtils.bars(result.p75(), maxTime)));
         ZyloBench.logger.info(String.format("  \u001B[34mP99: %10." + accuracy + "f %s %-40s\u001B[0m", p99, timeUnit.toString().toLowerCase(), BasicUtils.bars(result.p99(), maxTime)));
         ZyloBench.logger.info(String.format("  \u001B[34mTop 1%%: %10." + accuracy + "f %s %-40s\u001B[0m", top1, timeUnit.toString().toLowerCase(), BasicUtils.bars(result.top1(), maxTime)));
+        ZyloBench.logger.info(String.format("  \u001B[34mTotal: %10." + accuracy + "f %s\u001B[0m", total, timeUnit.toString().toLowerCase()));
     }
 
     /**
@@ -47,12 +49,13 @@ public class Results {
      * @return the result
      */
     public static Result calculate(@NotNull String name, long[] times) {
-        long avg = Arrays.stream(times).sum() / times.length;
+        long total = Arrays.stream(times).sum();
+        long avg = total / times.length;
         long min = times[0];
         long max = times[times.length - 1];
         long p75 = BasicUtils.percentile(times, 75);
         long p99 = BasicUtils.percentile(times, 99);
         long top1 = times[(int) (times.length * 0.99)];
-        return new Result(name, min, avg, max, p75, p99, top1);
+        return new Result(name, min, avg, max, p75, p99, top1, total);
     }
 }

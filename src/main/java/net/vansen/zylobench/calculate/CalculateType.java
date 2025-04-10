@@ -36,7 +36,12 @@ public enum CalculateType {
     /**
      * Calculates based on top 1%
      */
-    TOP1;
+    TOP1,
+
+    /**
+     * Calculates based on total time
+     */
+    TOTAL;
 
     /**
      * The speedup between two results
@@ -53,6 +58,7 @@ public enum CalculateType {
             case P75 -> (double) current.p75() / fastest.p75();
             case P99 -> (double) current.p99() / fastest.p99();
             case TOP1 -> (double) current.top1() / fastest.top1();
+            case TOTAL -> (double) current.total() / fastest.total();
         };
     }
 }
