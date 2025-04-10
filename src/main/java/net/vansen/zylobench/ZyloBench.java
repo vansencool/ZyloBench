@@ -29,6 +29,9 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings({"unused"})
 public class ZyloBench {
 
+    /**
+     * The logger for ZyloBench
+     */
     public static final Logger logger = LoggerFactory.getLogger(ZyloBench.class);
 
     private int warm = 10;
@@ -104,6 +107,7 @@ public class ZyloBench {
      * Adds an advanced task (benchmark) to the ZyloBench
      *
      * @param adv The advanced task
+     * @param <T> The type of the task
      * @return The ZyloBench
      */
     public <T> ZyloBench add(@NotNull Advanced<T> adv) {

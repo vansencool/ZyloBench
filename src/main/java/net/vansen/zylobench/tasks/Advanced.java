@@ -6,6 +6,11 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+/**
+ * Advanced task class, used to create a task with an initial state, update function and runnable
+ *
+ * @param <T> The type of the state
+ */
 public class Advanced<T> {
     private final String name;
     private final Supplier<T> initial;
@@ -55,6 +60,16 @@ public class Advanced<T> {
         return execute;
     }
 
+    /**
+     * Creates a new advanced task
+     *
+     * @param name    The name of the task
+     * @param initial The initial state
+     * @param update  The update function
+     * @param execute The runnable to execute
+     * @param <T>     The type of the state
+     * @return The advanced task
+     */
     public static <T> Advanced<T> as(@NotNull String name, @NotNull Supplier<T> initial, @NotNull Function<T, T> update, @NotNull Consumer<T> execute) {
         return new Advanced<>(name, initial, update, execute);
     }

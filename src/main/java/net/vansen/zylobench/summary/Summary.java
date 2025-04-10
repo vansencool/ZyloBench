@@ -9,8 +9,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Summary class, used to print the summary of the benchmark
+ */
 public class Summary {
 
+    /**
+     * Prints the summary of the benchmark
+     *
+     * @param results       The results of the benchmark
+     * @param calculateType The type of calculation to use for speedup
+     */
     public static void summary(@NotNull List<Result> results, @NotNull CalculateType calculateType) {
         if (results.size() >= 2) {
             List<Result> sortedResults = results.stream()

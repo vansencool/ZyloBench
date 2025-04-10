@@ -46,6 +46,8 @@ public class Task<T> {
 
     /**
      * Runs the task provided
+     *
+     * @return The time taken to run the task
      */
     @SuppressWarnings("all")
     public long run() {
