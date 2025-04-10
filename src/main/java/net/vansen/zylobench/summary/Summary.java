@@ -17,7 +17,7 @@ public class Summary {
                     .sorted(Comparator.comparingLong(Result::avg))
                     .toList();
 
-            Result fastest = sortedResults.getFirst();
+            Result fastest = sortedResults.get(0);
 
             ZyloBench.logger.info("");
             ZyloBench.logger.info("\u001B[36mBenchmark Summary\u001B[0m");
