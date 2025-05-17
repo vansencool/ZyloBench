@@ -40,6 +40,7 @@ public class ZyloBench {
     private TimeUnit timeUnit = TimeUnit.MICROSECONDS;
     private int accuracy = 2;
     private CalculateType calculateType = CalculateType.AVG;
+    private boolean printSummary = true;
 
     /**
      * Returns a new ZyloBench
@@ -150,6 +151,37 @@ public class ZyloBench {
     }
 
     /**
+     * Should summary be printed at the end of the benchmark (enabled by default)
+     *
+     * @param printSummary Print the summary or not
+     * @return The ZyloBench
+     */
+    public ZyloBench printSummary(boolean printSummary) {
+        this.printSummary = printSummary;
+        return this;
+    }
+
+    /**
+     * Sets the summary to not be printed at the end of the benchmark (enabled by default)
+     *
+     * @return The ZyloBench
+     */
+    public ZyloBench doNotPrintSummary() {
+        this.printSummary = false;
+        return this;
+    }
+
+    /**
+     * Sets the summary to be printed at the end of the benchmark (enabled by default)
+     *
+     * @return The ZyloBench
+     */
+    public ZyloBench printSummary() {
+        this.printSummary = true;
+        return this;
+    }
+
+    /**
      * Runs the ZyloBench
      */
     public void go() {
@@ -165,7 +197,7 @@ public class ZyloBench {
         logger.info("");
         for (Task<?> t : tasks) {
             long[] times = Benchmark.runBenchmark(t, warm, runs);
-            logger.info(String.format("\u001B[36m=^･ω･^= ZyloBench | %s finished =^･ω･^=\u001B[0m", t.name()));
+            logger.info("\u001B[36m=^･ω･^= ZyloBench | {} finished =^･ω･^=\u001B[0m", t.name());
             Result result = Results.calculate(t.name(), times);
             results.add(result);
             maxTime = Math.max(maxTime, result.max());
@@ -180,6 +212,6 @@ public class ZyloBench {
             Results.print(result, timeUnit, maxTime, accuracy);
         }
 
-        Summary.summary(results, calculateType);
+        if (printSummary) Summary.summary(results, calculateType);
     }
 }
